@@ -18,6 +18,6 @@ public class TestController {
     @RequestMapping
     @ResponseBody
     public ResponseEntity<String> functionResponse() {
-        return new ResponseEntity<>("Hi! Im a response from the controller... and my creator is " + this.name + " " + this.lastName + " 😎🤓", HttpStatus.OK);
+        return new ResponseEntity<>("Hi! Im a response from the controller... and my father is " + this.name + " " + this.lastName + " 😎🤓", HttpStatus.OK);
     }
 }

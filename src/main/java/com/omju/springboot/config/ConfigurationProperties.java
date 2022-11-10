@@ -14,12 +14,9 @@ public class ConfigurationProperties {
     @Value("${value.lastname}")
     private String lastName;
 
-    @Value("${value.random}")
-    private String random;
-
     @Bean
     public ConfigPropertiesBean functionConfig() {
-        return new ConfigPropertiesBeanImpl(lastName, name, random);
+        return new ConfigPropertiesBeanImpl(lastName, name);
     }
 
 }
