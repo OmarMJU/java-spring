@@ -1,9 +1,9 @@
 package com.omju.springboot;
 
-import com.omju.springboot.bean.MyBeanWithDependency;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.beans.factory.annotation.Qualifier;
 import com.omju.springboot.component.DependencyComponent;
+import com.omju.springboot.bean.MyBeanWithDependency;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.apache.logging.log4j.LogManager;
