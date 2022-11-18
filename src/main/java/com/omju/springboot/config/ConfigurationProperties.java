@@ -1,10 +1,10 @@
 package com.omju.springboot.config;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Value;
 import com.omju.springboot.bean.ConfigPropertiesBeanImpl;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import com.omju.springboot.bean.ConfigPropertiesBean;
 import org.springframework.context.annotation.Bean;
 import com.omju.springboot.pojo.UserPojo;
@@ -32,6 +32,6 @@ public class ConfigurationProperties {
         dataSourceBuilder.username("sa");
         dataSourceBuilder.password("");
 
-        return  dataSourceBuilder.build();
+        return dataSourceBuilder.build();
     }
 }

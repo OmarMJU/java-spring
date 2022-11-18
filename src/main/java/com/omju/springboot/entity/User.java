@@ -1,14 +1,13 @@
 package com.omju.springboot.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,10 +28,10 @@ public class User {
 
     public User() {}
 
-    public User(Long id, String name, String email) {
-        this.id = id;
+    public User(String name, String email, LocalDate birthDate) {
         this.name = name;
         this.email = email;
+        this.birthDate = birthDate;
     }
 
     public Long getId() {
