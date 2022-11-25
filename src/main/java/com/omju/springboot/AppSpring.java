@@ -58,6 +58,7 @@ public class AppSpring implements CommandLineRunner {
     public void run(String... args) {
         executions();
         saveUserInDataBase();
+        getUserByEmailJPQL();
     }
 
     private void executions() {
@@ -81,7 +82,7 @@ public class AppSpring implements CommandLineRunner {
 
         List<User> users = Arrays.asList(user, user2, user3, user4);
         users.stream().forEach(userRepository::save);
-        savePostInDataBase(users);
+//        savePostInDataBase(users);
     }
 
     private void  savePostInDataBase(List<User> users) {
@@ -100,5 +101,10 @@ public class AppSpring implements CommandLineRunner {
         }
 
         posts.stream().forEach(postRepository::save);
+    }
+
+    private void getUserByEmailJPQL() {
+        User user = userRepository.findByEmail("peter@mail.com").orElseThrow(() -> new RuntimeException("User not found"));
+        LOGGER.info("The user find is {}", user.toString());
     }
 }

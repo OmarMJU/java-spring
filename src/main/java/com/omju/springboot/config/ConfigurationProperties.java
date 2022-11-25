@@ -13,11 +13,11 @@ import javax.sql.DataSource;
 @Configuration
 @EnableConfigurationProperties(UserPojo.class)
 public class ConfigurationProperties {
-    @Value("${value.name}")
-    private String name;
-
     @Value("${value.lastname}")
     private String lastName;
+
+    @Value("${value.name}")
+    private String name;
 
     @Bean
     public ConfigPropertiesBean functionConfig() {
