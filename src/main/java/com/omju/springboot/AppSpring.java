@@ -58,7 +58,8 @@ public class AppSpring implements CommandLineRunner {
     public void run(String... args) {
         executions();
         saveUserInDataBase();
-        getUserByEmailJPQL();
+        getUserByEmailJPQL("peter@mail.com");
+        getUsersByName("User");
     }
 
     private void executions() {
@@ -79,8 +80,16 @@ public class AppSpring implements CommandLineRunner {
         User user2 = new User("Mary", "mary@mail.com", LocalDate.of(1991, 2, 15));
         User user3 = new User("Peter", "peter@mail.com", LocalDate.of(1999, 11, 7));
         User user4 = new User("Magnus", "magnus@mail.com", LocalDate.of(2005, 12, 6));
+        User user5 = new User("User5", "user5@mail.com", LocalDate.of(2005, 12, 6));
+        User user6 = new User("User6", "user6@mail.com", LocalDate.of(2005, 12, 6));
+        User user7 = new User("User7", "user7@mail.com", LocalDate.of(2005, 12, 6));
+        User user8 = new User("User8", "user8@mail.com", LocalDate.of(2005, 12, 6));
+        User user9 = new User("User9", "user9@mail.com", LocalDate.of(2005, 12, 6));
+        User user10 = new User("User10", "user10@mail.com", LocalDate.of(2005, 12, 6));
+        User user11 = new User("User11", "user11@mail.com", LocalDate.of(2005, 12, 6));
+        User user12 = new User("User12", "user12@mail.com", LocalDate.of(2005, 12, 6));
 
-        List<User> users = Arrays.asList(user, user2, user3, user4);
+        List<User> users = Arrays.asList(user, user2, user3, user4, user5, user7, user8, user9, user10, user11, user12);
         users.stream().forEach(userRepository::save);
 //        savePostInDataBase(users);
     }
@@ -103,8 +112,13 @@ public class AppSpring implements CommandLineRunner {
         posts.stream().forEach(postRepository::save);
     }
 
-    private void getUserByEmailJPQL() {
-        User user = userRepository.findByEmail("peter@mail.com").orElseThrow(() -> new RuntimeException("User not found"));
+    private void getUserByEmailJPQL(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
         LOGGER.info("The user find is {}", user.toString());
+    }
+
+    private void getUsersByName(String name) {
+        LOGGER.info("The the users with the name {} are:", name);
+        userRepository.findUsersByName(name).stream().forEach(LOGGER::info);
     }
 }
