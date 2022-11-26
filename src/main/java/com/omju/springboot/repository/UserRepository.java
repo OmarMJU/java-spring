@@ -5,6 +5,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import com.omju.springboot.entity.User;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.List;
 
@@ -18,6 +19,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // Query Methods.
     Optional<User> findById(Long id);
-
     Optional<User> findByNameAndEmail(String name, String email);
+    List<User> findByNameLike(String partName);
+    List<User> findByNameOrEmail(String name, String email);
+    List<User> findByBirthDateBetween(LocalDate begin, LocalDate end);
+    List<User> findByNameLikeOrderByIdDesc(String name);
+    List<User> findByNameContainingOrderByIdAsc(String name);
 }

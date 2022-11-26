@@ -19,7 +19,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @SpringBootApplication
 public class AppSpring implements CommandLineRunner {
@@ -62,7 +61,12 @@ public class AppSpring implements CommandLineRunner {
         getUserByEmailJPQL("peter@mail.com");
         getUsersByName("User");
         getUserById(2L);
-        getUserByNameAndEmail("Mary", "user5@mail.com");
+        getUserByNameAndEmail("Mary", "mary@mail.com");
+        getUserByPartName("%Us%");
+        getUserByNameOrEmail(null, "john@mail.com");
+        getUserByBirthDateRange(LocalDate.of(1991, 1, 1), LocalDate.of(2000, 12, 31));
+        getUserByNameDesc("%User%");
+        getUserByNameContainingASC("ser");
     }
 
     private void executions() {
@@ -133,5 +137,25 @@ public class AppSpring implements CommandLineRunner {
     private void getUserByNameAndEmail(String name, String email) {
         User user = userRepository.findByNameAndEmail(name, email).orElseThrow(() -> new RuntimeException("User not found"));
         LOGGER.info("The user with the name {} and de email {} is {}", name, email, user);
+    }
+
+    private void getUserByPartName(String partName) {
+        userRepository.findByNameLike(partName).stream().forEach(LOGGER::info);
+    }
+
+    private void getUserByNameOrEmail(String name, String email) {
+        userRepository.findByNameOrEmail(name, email).stream().forEach(LOGGER::info);
+    }
+
+    private void getUserByBirthDateRange(LocalDate begin, LocalDate end) {
+        userRepository.findByBirthDateBetween(begin, end).stream().forEach(LOGGER::info);
+    }
+
+    private void getUserByNameDesc(String name) {
+        userRepository.findByNameLikeOrderByIdDesc(name).stream().forEach(LOGGER::info);
+    }
+
+    private void getUserByNameContainingASC(String name) {
+        userRepository.findByNameContainingOrderByIdAsc(name).stream().forEach(LOGGER::info);
     }
 }
