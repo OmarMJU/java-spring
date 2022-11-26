@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootApplication
 public class AppSpring implements CommandLineRunner {
@@ -60,6 +61,8 @@ public class AppSpring implements CommandLineRunner {
         saveUserInDataBase();
         getUserByEmailJPQL("peter@mail.com");
         getUsersByName("User");
+        getUserById(2L);
+        getUserByNameAndEmail("Mary", "user5@mail.com");
     }
 
     private void executions() {
@@ -120,5 +123,15 @@ public class AppSpring implements CommandLineRunner {
     private void getUsersByName(String name) {
         LOGGER.info("The the users with the name {} are:", name);
         userRepository.findUsersByName(name).stream().forEach(LOGGER::info);
+    }
+
+    private void getUserById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
+        LOGGER.info("The user with the id {} is {} ", id, user);
+    }
+
+    private void getUserByNameAndEmail(String name, String email) {
+        User user = userRepository.findByNameAndEmail(name, email).orElseThrow(() -> new RuntimeException("User not found"));
+        LOGGER.info("The user with the name {} and de email {} is {}", name, email, user);
     }
 }

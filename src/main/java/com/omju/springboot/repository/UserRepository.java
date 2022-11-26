@@ -15,4 +15,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "select * from Users u where u.name like :name% order by u.id_user desc", nativeQuery = true)
     List<User> findUsersByName(@Param("name") String name);
+
+    // Query Methods.
+    Optional<User> findById(Long id);
+
+    Optional<User> findByNameAndEmail(String name, String email);
 }
