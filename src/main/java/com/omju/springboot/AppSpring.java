@@ -67,6 +67,7 @@ public class AppSpring implements CommandLineRunner {
         getUserByBirthDateRange(LocalDate.of(1991, 1, 1), LocalDate.of(2000, 12, 31));
         getUserByNameDesc("%User%");
         getUserByNameContainingASC("ser");
+        getUserByBirthDateAndEmail("mary@mail.com", LocalDate.of(1991, 2, 15));
     }
 
     private void executions() {
@@ -96,7 +97,7 @@ public class AppSpring implements CommandLineRunner {
         User user11 = new User("User11", "user11@mail.com", LocalDate.of(2005, 12, 6));
         User user12 = new User("User12", "user12@mail.com", LocalDate.of(2005, 12, 6));
 
-        List<User> users = Arrays.asList(user, user2, user3, user4, user5, user7, user8, user9, user10, user11, user12);
+        List<User> users = Arrays.asList(user, user2, user3, user4, user5, user6, user7, user8, user9, user10, user11, user12);
         users.stream().forEach(userRepository::save);
 //        savePostInDataBase(users);
     }
@@ -157,5 +158,10 @@ public class AppSpring implements CommandLineRunner {
 
     private void getUserByNameContainingASC(String name) {
         userRepository.findByNameContainingOrderByIdAsc(name).stream().forEach(LOGGER::info);
+    }
+
+    private void getUserByBirthDateAndEmail(String email, LocalDate birthDate) {
+        User user = userRepository.findByEmailAndBirthDate(email, birthDate).orElseThrow(() -> new RuntimeException("User not found"));
+        LOGGER.info("The user with the email {} and the birthdate {} found is {}", email, birthDate, user);
     }
 }

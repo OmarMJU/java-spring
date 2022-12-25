@@ -11,10 +11,10 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    @Query(value = "select * from Users u where u.email=:email", nativeQuery = true)
+    @Query(value = "select * from USERS u where u.EMAIL_USER=:email", nativeQuery = true)
     Optional<User> findByEmail(@Param("email") String email);
 
-    @Query(value = "select * from Users u where u.name like :name% order by u.id_user desc", nativeQuery = true)
+    @Query(value = "select * from USERS u where u.NAME_USER like :name% order by u.ID_USER desc", nativeQuery = true)
     List<User> findUsersByName(@Param("name") String name);
 
     // Query Methods.
@@ -25,4 +25,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByBirthDateBetween(LocalDate begin, LocalDate end);
     List<User> findByNameLikeOrderByIdDesc(String name);
     List<User> findByNameContainingOrderByIdAsc(String name);
+
+    @Query(value = "select * from USERS as u where u.BIRTHDATE_USER=:birthDate and u.EMAIL_USER=:email", nativeQuery = true)
+    Optional<User> findByEmailAndBirthDate(@Param("email") String email, @Param("birthDate") LocalDate birthDate);
 }

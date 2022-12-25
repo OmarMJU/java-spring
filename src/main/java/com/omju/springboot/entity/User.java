@@ -7,19 +7,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_user", nullable = false, unique = true)
+    @Column(name = "ID_USER", nullable = false, unique = true)
     private Long id;
 
-    @Column(length = 50)
+    @Column(name = "NAME_USER", length = 50)
     private String name;
 
-    @Column(length = 50)
+    @Column(name = "EMAIL_USER", length = 50)
     private String email;
 
+    @Column(name = "BIRTHDATE_USER")
     private LocalDate birthDate;
 
     @OneToMany(mappedBy = "user",  cascade = CascadeType.ALL, fetch = FetchType.EAGER)
