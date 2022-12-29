@@ -16,6 +16,8 @@ import com.omju.springboot.entity.User;
 import com.omju.springboot.entity.Post;
 import org.apache.logging.log4j.Logger;
 import com.omju.springboot.bean.MyBean;
+import org.springframework.dao.DataIntegrityViolationException;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -174,10 +176,15 @@ public class AppSpring implements CommandLineRunner {
         User user = new User("Rick", "rick@mail.com", LocalDate.of(2021, 3, 20));
         User user2 = new User("Morty", "morty@mail.com", LocalDate.of(1991, 2, 15));
         User user3 = new User("Candace", "candace@mail.com", LocalDate.of(1999, 11, 7));
-        User user4 = new User("Petrus", "petrus@mail.com", LocalDate.of(2005, 12, 6));
+        User user4 = new User("Petrus", "morty@mail.com", LocalDate.of(2005, 12, 6)); // Email repeat.
         List<User> users = Arrays.asList(user, user2, user3, user4);
 
-        userService.saveTransactional(users);
+        try {
+            userService.saveTransactional(users);
+        } catch (DataIntegrityViolationException e) {
+            LOGGER.error("Some data is repeat", e);
+        }
+
         LOGGER.info("Show all users");
         userService.getAllUsers().stream().forEach(LOGGER::info);
     }

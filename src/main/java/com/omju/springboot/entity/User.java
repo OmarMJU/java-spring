@@ -17,7 +17,7 @@ public class User {
     @Column(name = "NAME_USER", length = 50)
     private String name;
 
-    @Column(name = "EMAIL_USER", length = 50)
+    @Column(name = "EMAIL_USER", length = 50, unique = true)
     private String email;
 
     @Column(name = "BIRTHDATE_USER")
