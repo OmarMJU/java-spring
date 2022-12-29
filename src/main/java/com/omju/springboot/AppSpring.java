@@ -9,6 +9,7 @@ import com.omju.springboot.repository.PostRepository;
 import com.omju.springboot.bean.ConfigPropertiesBean;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import com.omju.springboot.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import com.omju.springboot.pojo.UserPojo;
 import com.omju.springboot.entity.User;
@@ -28,6 +29,7 @@ public class AppSpring implements CommandLineRunner {
     private final DependencyComponent dependencyComponent;
     private final UserRepository userRepository;
     private final PostRepository postRepository;
+    private final UserService userService;
     private final UserPojo userPojo;
     private final MyBean myBean;
 
@@ -38,13 +40,15 @@ public class AppSpring implements CommandLineRunner {
             ConfigPropertiesBean configPropertiesBean,
             UserPojo userPojo,
             UserRepository userRepository,
-            PostRepository postRepository
+            PostRepository postRepository,
+            UserService userService
     ) {
         this.configPropertiesBean = configPropertiesBean;
         this.myBeanWithDependency = myBeanWithDependency;
         this.dependencyComponent = dependencyComponent;
         this.userRepository = userRepository;
         this.postRepository = postRepository;
+        this.userService = userService;
         this.userPojo = userPojo;
         this.myBean = myBean;
     }
@@ -68,6 +72,7 @@ public class AppSpring implements CommandLineRunner {
         getUserByNameDesc("%User%");
         getUserByNameContainingASC("ser");
         getUserByBirthDateAndEmail("mary@mail.com", LocalDate.of(1991, 2, 15));
+        saveTransactional();
     }
 
     private void executions() {
@@ -163,5 +168,17 @@ public class AppSpring implements CommandLineRunner {
     private void getUserByBirthDateAndEmail(String email, LocalDate birthDate) {
         User user = userRepository.findByEmailAndBirthDate(email, birthDate).orElseThrow(() -> new RuntimeException("User not found"));
         LOGGER.info("The user with the email {} and the birthdate {} found is {}", email, birthDate, user);
+    }
+
+    private void saveTransactional() {
+        User user = new User("Rick", "rick@mail.com", LocalDate.of(2021, 3, 20));
+        User user2 = new User("Morty", "morty@mail.com", LocalDate.of(1991, 2, 15));
+        User user3 = new User("Candace", "candace@mail.com", LocalDate.of(1999, 11, 7));
+        User user4 = new User("Petrus", "petrus@mail.com", LocalDate.of(2005, 12, 6));
+        List<User> users = Arrays.asList(user, user2, user3, user4);
+
+        userService.saveTransactional(users);
+        LOGGER.info("Show all users");
+        userService.getAllUsers().stream().forEach(LOGGER::info);
     }
 }
