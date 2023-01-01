@@ -1,6 +1,7 @@
 package com.omju.springboot;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import com.omju.springboot.component.DependencyComponent;
 import com.omju.springboot.bean.MyBeanWithDependency;
@@ -16,8 +17,6 @@ import com.omju.springboot.entity.User;
 import com.omju.springboot.entity.Post;
 import org.apache.logging.log4j.Logger;
 import com.omju.springboot.bean.MyBean;
-import org.springframework.dao.DataIntegrityViolationException;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
