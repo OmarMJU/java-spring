@@ -1,7 +1,7 @@
 package com.omju.springboot.controller;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import com.omju.springboot.crud.GetUser;
 import com.omju.springboot.entity.User;
@@ -19,6 +19,11 @@ public class UserController {
     @GetMapping("/")
     List<User> get() {
         return getUser.getAll();
+    }
+
+    @GetMapping("/{id}")
+    User getById(@PathVariable Long id) {
+        return getUser.getById(id);
     }
 
     @PostMapping("/")

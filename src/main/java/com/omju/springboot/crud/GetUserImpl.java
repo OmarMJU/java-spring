@@ -17,6 +17,11 @@ public class GetUserImpl implements GetUser {
     }
 
     @Override
+    public User getById(Long id) {
+        return userService.getById(id);
+    }
+
+    @Override
     public User insertUser(User newUser) {
         return userService.save(newUser);
     }
