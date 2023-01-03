@@ -26,6 +26,11 @@ public class UserController {
         return getUser.getById(id);
     }
 
+    @GetMapping("/page")
+    List<User> getUsersPage(@RequestParam int page, @RequestParam int size) {
+        return  getUser.getUsers(page, size);
+    }
+
     @PostMapping("/")
     ResponseEntity<User> newUser(@RequestBody User user) {
         return new ResponseEntity<>(getUser.insertUser(user), HttpStatus.CREATED);

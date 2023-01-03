@@ -9,4 +9,5 @@ public interface GetUser {
     User insertUser(User newUser);
     void deleteUser(Long id);
     User updateUser(User newUser, Long id);
+    List<User> getUsers(int page, int size);
 }

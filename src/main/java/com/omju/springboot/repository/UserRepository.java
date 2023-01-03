@@ -1,6 +1,6 @@
 package com.omju.springboot.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends PagingAndSortingRepository<User, Long> {
     @Query(value = "select * from USERS u where u.EMAIL_USER=:email", nativeQuery = true)
     Optional<User> findByEmail(@Param("email") String email);
 
@@ -28,4 +28,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "select * from USERS as u where u.BIRTHDATE_USER=:birthDate and u.EMAIL_USER=:email", nativeQuery = true)
     Optional<User> findByEmailAndBirthDate(@Param("email") String email, @Param("birthDate") LocalDate birthDate);
+
+    // Solve the interface error in findAll() method.
+    List<User> findAll();
 }

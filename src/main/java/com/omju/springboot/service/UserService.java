@@ -2,6 +2,7 @@ package com.omju.springboot.service;
 
 import org.springframework.transaction.annotation.Transactional;
 import com.omju.springboot.repository.UserRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.apache.logging.log4j.LogManager;
 import com.omju.springboot.entity.User;
@@ -46,5 +47,9 @@ public class UserService {
 
            return userRepository.save(user);
         }).orElseThrow(() -> new RuntimeException("User not found!!"));
+    }
+
+    public List<User> findAll(int page, int size) {
+        return userRepository.findAll(PageRequest.of(page, size)).getContent();
     }
 }

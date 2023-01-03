@@ -35,4 +35,9 @@ public class GetUserImpl implements GetUser {
     public User updateUser(User newUser, Long id) {
         return userService.update(newUser, id);
     }
+
+    @Override
+    public List<User> getUsers(int page, int size) {
+        return userService.findAll(page, size);
+    }
 }
