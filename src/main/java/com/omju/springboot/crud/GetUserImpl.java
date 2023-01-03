@@ -15,4 +15,19 @@ public class GetUserImpl implements GetUser {
     public List<User> getAll() {
         return userService.getAllUsers();
     }
+
+    @Override
+    public User insertUser(User newUser) {
+        return userService.save(newUser);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        userService.delete(id);
+    }
+
+    @Override
+    public User updateUser(User newUser, Long id) {
+        return userService.update(newUser, id);
+    }
 }
